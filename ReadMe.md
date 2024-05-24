@@ -13,6 +13,9 @@ How?
 Steps:
 cd pa-5 && npm install && ionic serve
 
+Notes:
+1. Remove API folder
+
 Sesison:
 Saturday:
 1. 16:30 -> Set up tooling and basic understanding: Build Your First Ionic Mobile App: Angular Development Tutorial
