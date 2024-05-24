@@ -3,17 +3,17 @@ import { Component, OnInit } from '@angular/core';
 // import { FormsModule } from '@angular/forms';
 // import { RouterLink } from '@angular/router';
 // import { IonicModule } from '@ionic/angular';
-import { LecturerServiceService } from '../services/lecturer/lecturer-service.service';
+import { LecturerServiceService } from '../../../services/lecturer/lecturer-service.service';
 
 @Component({
-  selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss'],
+  selector: 'app-logout',
+  templateUrl: 'logout.page.html',
+  styleUrls: ['logout.page.scss'],
   // TODO
   // standalone: true,
   // imports: [IonicModule, CommonModule, FormsModule, RouterLink],
 })
-export class Tab3Page implements OnInit {
+export class LogoutPage implements OnInit {
   // create 2 variables to store results emitted from observable
   lecturers: any;
   newLecturers: any;

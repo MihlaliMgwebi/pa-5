@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { IAPIResponse } from 'src/interfaces/api-response.model';
-import { AuthService } from '../services/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,10 +18,10 @@ export class LoginPage {
 
   protected login(form: NgForm){
     const { username, password } = form.value
-    console.log('login', form.value);
+    
     this._authService.login(username, password).subscribe((res: IAPIResponse)=>{
       if (res.success && res.api_key){
-        this._router.navigateByUrl('tabs');
+        this._router.navigateByUrl(environment.redirect_url);
         sessionStorage.setItem('apiKey', res.api_key);
       } else {
         console.error(res.message)
