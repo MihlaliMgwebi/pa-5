@@ -22,7 +22,7 @@ export class LoginPage {
     this._authService.login(username, password).subscribe((res: IAPIResponse)=>{
       if (res.success && res.api_key){
         this._router.navigateByUrl(environment.redirect_url);
-        sessionStorage.setItem('apiKey', res.api_key);
+        localStorage.setItem('apiKey', res.api_key);
       } else {
         console.error(res.message)
       }
@@ -30,7 +30,7 @@ export class LoginPage {
   }
 
   protected logout(){
-    sessionStorage.removeItem('apiKey');
+    localStorage.removeItem('apiKey');
     this._router.navigateByUrl('');
   }
 
