@@ -12,7 +12,7 @@ import { LogoutPage } from './logout';
     IonicModule,
     CommonModule,
     FormsModule,
-    LogoutPageRoutingModule
+    LogoutPageRoutingModule,
   ],
   declarations: [LogoutPage]
 })

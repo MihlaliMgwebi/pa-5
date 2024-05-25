@@ -17,22 +17,16 @@ export class LoginPage {
   constructor() { }
 
   protected login(form: NgForm){
-    const { username, password } = form.value
+    const { name, password } = form.value
     
-    this._authService.login(username, password).subscribe((res: IAPIResponse)=>{
+    this._authService.login(name, password).subscribe((res: IAPIResponse)=>{
       if (res.success && res.api_key){
+        localStorage.setItem('api_key', res.api_key);
         this._router.navigateByUrl(environment.redirect_url);
-        localStorage.setItem('apiKey', res.api_key);
       } else {
         console.error(res.message)
       }
     });
   }
-
-  protected logout(){
-    localStorage.removeItem('apiKey');
-    this._router.navigateByUrl('');
-  }
-
   // TODO: Splash page
 }

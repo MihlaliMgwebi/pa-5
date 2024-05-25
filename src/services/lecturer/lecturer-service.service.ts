@@ -1,22 +1,31 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { Observable, map } from 'rxjs';
+
 import { environment } from 'src/environments/environment';
+import { ILecturer } from 'src/interfaces/lecturer.model';
+
+export interface IAPIResponse {
+  lecturers: ILecturer[];
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class LecturerServiceService {
   // create url variable to hold the php_ionic json-data-students.php file
-  urlLecturers = environment.urlLecturers;
+  private _urlLecturers = environment.urlLecturers;
+  private _http = inject(HttpClient);
+  
 
-  // Inject HttpClient into the constructor
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   // create a method to get the data from the json-data-students.php file
-  getLecturers(): Observable<any> { 
+  public getLecturers(): Observable<ILecturer[]> { 
     // return type is Observable<any>
-    return this.http.get(this.urlLecturers);
+    return this._http.post<IAPIResponse>(this._urlLecturers).pipe(
+      map(x => x.lecturers)
+    );
   }
 }
 //Note:  

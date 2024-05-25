@@ -13,12 +13,11 @@ export class AuthService {
 
   constructor() { }
 
-  public login(username: string, password: string): Observable<IAPIResponse> {
+  public login(name: string, password: string): Observable<IAPIResponse> {
     const body = new HttpParams()
-    .set('username', username)
+    .set('name', name)
     .set('password', password);
 
- 
     return this._http.post<IAPIResponse>(this._baseUrl, body.toString(), {
       // headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }

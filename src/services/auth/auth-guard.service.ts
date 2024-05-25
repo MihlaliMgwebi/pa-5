@@ -7,7 +7,7 @@ import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@ang
 })
 export class AuthGuardService {
     canActivate(): boolean {
-      const apiKey = localStorage.getItem('apiKey');
+      const apiKey = localStorage.getItem('api_key');
       return !!apiKey; //true if it exists
   }
 }
