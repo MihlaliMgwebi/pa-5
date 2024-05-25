@@ -8,25 +8,19 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-logout',
   templateUrl: 'logout.page.html',
-  styleUrls: [],//styleUrls: ['logout.page.scss']
-  // TODO
-  // standalone: true,
-  // imports: [IonicModule, CommonModule, FormsModule, RouterLink],
+  styleUrls: []
 })
 export class LogoutPage implements OnInit {
   private _router = inject(Router);
   
   constructor() {}
 
-
   protected logout(){
-    // TODO Fix, 
-    localStorage.removeItem('apiKey');
+    localStorage.removeItem('api_key');
     this._router.navigateByUrl('');
   }
 
   public ngOnInit(): void {
     this.logout();
   }
-
 }
