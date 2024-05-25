@@ -6,10 +6,80 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<!-- <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Search</ion-title>
     </ion-toolbar>
   </ion-header>
+  <div class = "list">
+    <label class = "item item-input item-stacked-label">
+       <span class = "input-label">Label 1</span>
+       <input type = "text" placeholder = "Placeholder 1" />
+    </label>
+ 
+    <label class = "item item-input item-stacked-label">
+       <span class = "input-label">Label 2</span>
+       <input type = "text" placeholder = "Placeholder 2" />
+    </label>
+ </div>
+</ion-content> -->
+
+<ion-content>
+  <ion-list [formGroup]="searchForm">
+    <ion-item>
+      <ion-label position="floating">Limit (1-500)</ion-label>
+      <ion-input type="number" min="1" max="500" formControlName="limit"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Sort</ion-label>
+      <ion-select formControlName="sort">
+        <ion-select-option value="id">ID</ion-select-option>
+        <ion-select-option value="title">Title</ion-select-option>
+        <ion-select-option value="location">Location</ion-select-option>
+        <ion-select-option value="price">Price</ion-select-option>
+        <ion-select-option value="bedrooms">Bedrooms</ion-select-option>
+        <ion-select-option value="bathrooms">Bathrooms</ion-select-option>
+        <ion-select-option value="parking_spaces">Parking Spaces</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Order</ion-label>
+      <ion-select formControlName="order">
+        <ion-select-option value="ASC">Ascending</ion-select-option>
+        <ion-select-option value="DESC">Descending</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Fuzzy</ion-label>
+      <ion-toggle formControlName="fuzzy"></ion-toggle>
+    </ion-item>
+
+    <div formGroupName="search">
+      <ion-item>
+        <ion-label position="floating">Search Type</ion-label>
+        <ion-select formControlName="type">
+          <ion-select-option value="sale">Sale</ion-select-option>
+          <ion-select-option value="rent">Rent</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Search Location</ion-label>
+        <ion-input type="text" formControlName="location"></ion-input>
+      </ion-item>
+  </div>
+    <ion-item>
+      <ion-label position="floating">Return Fields</ion-label>
+      <ion-select multiple formControlName="return">
+        <ion-select-option value="id">ID</ion-select-option>
+        <ion-select-option value="price">Price</ion-select-option>
+        <ion-select-option value="location">Location</ion-select-option>
+        <ion-select-option value="images">Images</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button (click)="onSubmit()">Search</ion-button>
+  </ion-list>
 </ion-content>

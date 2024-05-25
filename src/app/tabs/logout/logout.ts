@@ -20,6 +20,7 @@ export class LogoutPage implements OnInit {
 
 
   protected logout(){
+    // TODO Fix, 
     localStorage.removeItem('apiKey');
     this._router.navigateByUrl('');
   }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { IListing, IListingPostBody, IListingResponseObject } from 'src/interfaces/listing.model';
@@ -14,16 +14,57 @@ export class ListingsService {
   private _http = inject(HttpClient);
   // create url variable to hold the php_ionic json-data-students.php file
   private _baseUrl = environment.api_url;
+  private _listingPostBody : IListingPostBody | undefined;
+  private _apikey : string | undefined;
 
   constructor() { }
 
-  // create a method to get the data from the json-data-students.php file
-  public get(_body: IListingPostBody): Observable<IListing[]> { 
-    const body = new HttpParams()
-    .set('apikey', _body.apikey)
-    .set('type', _body.type)
-    .set('return', Array.isArray(_body.return)? _body.return.join(',') : _body.return);
+  public getAPIKey(){
+    return localStorage.getItem('api_key') ?? '';
+  }
 
+  public getListingPostBody(){
+    return this._listingPostBody
+  }
+
+  public setAPIKey(apikey: string){
+    this._apikey = apikey
+  }
+  
+  public setListingPostBody(_body: IListingPostBody){
+    this._listingPostBody = _body
+  }
+
+  // create a method to get the data from the json-data-students.php file
+  public get(): Observable<IListing[]> { 
+    const _body = this.getListingPostBody();
+    console.log(_body);
+
+    if (!_body)
+      return of([])
+
+    let body = new HttpParams()
+     .set('apikey', this.getAPIKey())
+     .set('type', _body.type ?? 'GetAllListings')
+    .set('return', _body.return === '*'? ['id', 'title', 'location', 'price', 'bedrooms', 'bathrooms', 'url', 'parking spaces', 'amenities', 'description', 'type', 'images'].join(',') : Array.isArray(_body.return)? _body.return.join(',') : '');
+    
+    if (_body.limit) {
+      body = body.set('limit', _body.limit.toString());
+    }
+  
+    if (_body.order) {
+      body = body.set('order', _body.order);
+    }
+  
+    if (_body.fuzzy!== undefined) {
+      body = body.set('fuzzy', _body.fuzzy.toString());
+    }
+  
+    if (_body.search) {
+      // body = body.set('search', JSON.stringify(_body.search)); // TODO remove hardcoded value
+      body = body .set('search', _body.search ? JSON.stringify(_body.search) : JSON.stringify({"location": "Hatfield", "type": "sale" }))
+    }
+   
 
     return this._http.post<IListingResponseObject>(this._baseUrl, body.toString(), {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }

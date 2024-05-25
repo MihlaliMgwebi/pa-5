@@ -1,3 +1,4 @@
+export type SearchType = {[key in keyof IListing]?: string;}
 export interface IListingPostBody {
   apikey: string;
   type: 'GetAllListings';
@@ -5,9 +6,7 @@ export interface IListingPostBody {
   sort?: string; // Sort can be any of but not limited to the following: [’id’, ’title’, ’location’, ’price’, ’bedrooms’, ’bath- rooms’, ’parking spaces’]
   order?: 'ASC' | 'DESC';
   fuzzy?: boolean;
-  search?: {
-      [key in keyof IListing]?: string;
-  };
+  search?: SearchType
   return: '*' | string[]; 
 }
 
