@@ -36,6 +36,11 @@ export class ListingsPage {
     return loading;
   }
   
+  protected getListingImage(listOfImages: string){
+    console.log(listOfImages.split(',')[0])
+    return listOfImages.split(',')[0] 
+  }
+
   public handleRefresh(event: CustomEvent): void {
     this.getListings().then(() => {
       (event.target as HTMLIonRefresherElement).complete();

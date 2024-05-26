@@ -31,5 +31,5 @@ export interface IListing {
   amenities?: string;
   description?: string;
   type?: 'sale' | 'rent';
-  images?: string[];
+  images?: string;
 }

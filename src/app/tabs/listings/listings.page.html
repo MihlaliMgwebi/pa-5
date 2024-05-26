@@ -1,55 +1,28 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Card Title</ion-card-title>
+    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list *ngIf="newListings">
+      <ion-item *ngFor="let listing of newListings | async">
+        <ion-thumbnail slot="start">
+          <img alt="Image of Listing" [src]="listing.images? getListingImage(listing.images) : 'https://jsonplaceholder.typicode.com/photos/1'" />
+        </ion-thumbnail>
+        <ion-card-header>
+          <ion-card-title>{{listing.title ?? 'N/A'}}</ion-card-title>
+          <ion-card-subtitle>{{(listing.type | uppercase) ?? 'N/A'}} for R {{listing.price ?? 'N/A'}}</ion-card-subtitle>
+        </ion-card-header>
 
+        <ion-card-content>
+          <ion-label> Located in  {{listing.location ?? 'N/A'}}: {{listing.bedrooms ?? 'N/A' }} Beds | {{listing.bathrooms ?? 'N/A'}} Baths | {{listing.parking_spaces ?? 'N/A'}} Bays</ion-label>
 
-<ion-header [translucent]="false">
-  <ion-toolbar>
-    <ion-title> Listings </ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+          <p>{{listing.description ?? 'N/A'}}</p>
+        </ion-card-content>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large"> Listings</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-<ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
-  <ion-refresher-content></ion-refresher-content>
-</ion-refresher>
-<!--   display listing list as an accordian component which can show listing detail when clicked on and expanded-->
-  <ion-accordion-group expand="inset" *ngIf="newListings">
-    <ion-accordion *ngFor="let listing of newListings | async">
-      <ion-item slot="header" color="light">
-        <ion-label>For {{(listing.type | uppercase) ?? 'N/A'}}: {{listing.title ?? 'N/A'}} for R {{listing.price ?? 'N/A'}} in {{listing.location ?? 'N/A'}}</ion-label>
+        <ion-button href="{{listing.url ?? 'N/A'}}" fill="clear">View more...</ion-button>
       </ion-item>
-      <div class="ion-padding" slot="content">
-        <ion-list>
-          <!-- mailto will allow students to email listings directly from here -->
-          <ion-item href="{{listing.url ?? 'N/A'}}">
-            <!-- TODO: wtf is this for? -->
-            <ion-label>Url to Agency Site </ion-label>
-          </ion-item>
-          <ion-item>
-            <!-- <ion-label>{{listing.bedrooms}} <ion-icon slot="start" name="bed"></ion-icon> | {{listing.bathrooms}} <ion-icon slot="start" name="bath"></ion-icon> | {{listing.parking_spaces}} <ion-icon slot="start" name="car"></ion-icon></ion-label> -->
-            <ion-label>{{listing.bedrooms ?? 'N/A' }} Beds | {{listing.bathrooms ?? 'N/A'}} Baths | {{listing.parking_spaces ?? 'N/A'}} Bays</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-label>Descrition: {{listing.description ?? 'N/A'}} </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-label>Amenities: {{listing.amenities ?? 'N/A'}} </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-label>Images: {{listing.images ?? 'N/A'}} </ion-label>
-          </ion-item>
-        </ion-list>
-      </div>
-    </ion-accordion>
-  </ion-accordion-group>
-</ion-content>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+
