@@ -18,11 +18,11 @@
       <ion-title size="large"> Listings</ion-title>
     </ion-toolbar>
   </ion-header>
-  <!-- Display loading state when newListings is not available -->
-  <!-- <ion-loading *ngIf="!newListings;" trigger="open-loading" message="Loading listings..." duration="3000"></ion-loading> -->
 
-  <!-- display listing list as an accordian component which can show listing detail when clicked on and expanded -->
-  <ion-accordion-group expand="inset" *ngIf="newListings;">
+<!--  <ion-button (click)="showLoading()">Show Loading</ion-button>-->
+
+<!--   display listing list as an accordian component which can show listing detail when clicked on and expanded-->
+  <ion-accordion-group expand="inset" *ngIf="newListings">
     <ion-accordion *ngFor="let listing of newListings | async;">
       <ion-item slot="header" color="light">
         <ion-label>For {{listing.type | uppercase}}: {{listing.title}} for R{{listing.price}} in {{listing.location}}</ion-label>

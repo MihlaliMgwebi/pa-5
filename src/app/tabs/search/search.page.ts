@@ -13,9 +13,9 @@ import { ListingsService } from 'src/services/api/listings.service';
 export class SearchPage {
   private _listingsService = inject(ListingsService);
   private _formBuilder = inject(FormBuilder);
-  protected searchForm: FormGroup;
   private _router = inject(Router);
-  
+  protected searchForm: FormGroup;
+
   constructor() {
     this.searchForm = this._formBuilder.group({
       type: new FormControl('GetAllListings'),
@@ -31,12 +31,16 @@ export class SearchPage {
     });
   }
 
+  protected getFields(): string[] {
+    return ['id', 'title', 'location', 'price', 'bedrooms', 'bathrooms', 'url', 'parking spaces', 'amenities', 'description', 'type', 'images']
+  }
 
   protected onSubmit(): void {
     const apikey = this._listingsService.getAPIKey();
     const body = {apikey, ...this.searchForm.value} as IListingPostBody;
     this._listingsService.setListingPostBody(body);
-    this._listingsService.get().subscribe(() => this._router.navigateByUrl(environment.redirect_url));
+    this._router.navigateByUrl(environment.redirect_url);
   }
 
+  protected readonly Object = Object;
 }
