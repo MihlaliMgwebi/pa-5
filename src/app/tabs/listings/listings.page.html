@@ -20,32 +20,34 @@
   </ion-header>
 
 <!--  <ion-button (click)="showLoading()">Show Loading</ion-button>-->
-
+<ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+  <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
 <!--   display listing list as an accordian component which can show listing detail when clicked on and expanded-->
   <ion-accordion-group expand="inset" *ngIf="newListings">
-    <ion-accordion *ngFor="let listing of newListings | async;">
+    <ion-accordion *ngFor="let listing of newListings | async">
       <ion-item slot="header" color="light">
-        <ion-label>For {{listing.type | uppercase}}: {{listing.title}} for R{{listing.price}} in {{listing.location}}</ion-label>
+        <ion-label>For {{(listing.type | uppercase) ?? 'N/A'}}: {{listing.title ?? 'N/A'}} for R {{listing.price ?? 'N/A'}} in {{listing.location ?? 'N/A'}}</ion-label>
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-list>
           <!-- mailto will allow students to email listings directly from here -->
-          <ion-item href="{{listing.url}}">
+          <ion-item href="{{listing.url ?? 'N/A'}}">
             <!-- TODO: wtf is this for? -->
-            <ion-label>url: {{listing.url}} </ion-label>
+            <ion-label>Url to Agency Site </ion-label>
           </ion-item>
           <ion-item>
             <!-- <ion-label>{{listing.bedrooms}} <ion-icon slot="start" name="bed"></ion-icon> | {{listing.bathrooms}} <ion-icon slot="start" name="bath"></ion-icon> | {{listing.parking_spaces}} <ion-icon slot="start" name="car"></ion-icon></ion-label> -->
-            <ion-label>{{listing.bedrooms}} Beds | {{listing.bathrooms}} Baths | {{listing.parking_spaces}} Bays</ion-label>
+            <ion-label>{{listing.bedrooms ?? 'N/A' }} Beds | {{listing.bathrooms ?? 'N/A'}} Baths | {{listing.parking_spaces ?? 'N/A'}} Bays</ion-label>
           </ion-item>
           <ion-item>
-            <ion-label>Descrition: {{listing.description}} </ion-label>
+            <ion-label>Descrition: {{listing.description ?? 'N/A'}} </ion-label>
           </ion-item>
           <ion-item>
-            <ion-label>Amenities: {{listing.amenities}} </ion-label>
+            <ion-label>Amenities: {{listing.amenities ?? 'N/A'}} </ion-label>
           </ion-item>
           <ion-item>
-            <ion-label>Images: {{listing.images}} </ion-label>
+            <ion-label>Images: {{listing.images ?? 'N/A'}} </ion-label>
           </ion-item>
         </ion-list>
       </div>

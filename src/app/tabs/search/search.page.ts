@@ -27,19 +27,19 @@ export class SearchPage {
         type: new FormControl('sale'),
         location: new FormControl(''),
       }),
-      return: new FormControl(['*']),
+      return: new FormControl([]),
     });
   }
 
   protected getFields(): string[] {
-    return ['id', 'title', 'location', 'price', 'bedrooms', 'bathrooms', 'url', 'parking spaces', 'amenities', 'description', 'type', 'images']
+    return ['id', 'title', 'location', 'price', 'bedrooms', 'bathrooms', 'url', 'parking_spaces', 'amenities', 'description', 'type', 'images']
   }
 
   protected onSubmit(): void {
-    const apikey = this._listingsService.getAPIKey();
-    const body = {apikey, ...this.searchForm.value} as IListingPostBody;
+    const body = this.searchForm.value as IListingPostBody;
     this._listingsService.setListingPostBody(body);
-    this._router.navigateByUrl(environment.redirect_url);
+    this._listingsService.get().subscribe((data)=> (data) ? this._router.navigateByUrl(environment.redirect_url): '');
+    
   }
 
   protected readonly Object = Object;

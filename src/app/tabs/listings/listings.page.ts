@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { IListing } from 'src/interfaces/listing.model';
@@ -9,24 +9,20 @@ import { ListingsService } from 'src/services/api/listings.service';
   templateUrl: 'listings.page.html',
   styleUrls: ['listings.page.scss']
 })
-export class ListingsPage implements OnInit {
+export class ListingsPage {
   private _listingsService = inject(ListingsService);
   protected newListings: Observable<IListing[]> | undefined;
 
-  constructor() {}
+  constructor() {
+    this.newListings = this._listingsService.get()
 
-  public ngOnInit() {
-    this.newListings = this._listingsService.get();
   }
-// {
-  // constructor(private loadingCtrl: LoadingController) {}
-  //
-  // async showLoading() {
-  //   const loading = await this.loadingCtrl.create({
-  //     message: 'Dismissing after 3 seconds...',
-  //     duration: 3000,
-  //   });
-  //
-  //   loading.present();
-  // }
+
+  public handleRefresh(event: CustomEvent): void {
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.newListings = this._listingsService.get();
+      (event.target as HTMLIonRefresherElement).complete();
+    }, 2000);
+  }
 }
