@@ -1,12 +1,11 @@
-export type SearchType = {[key in keyof IListing]?: string;}
+export type SearchType = 'id'| 'title'| 'location'| 'price'| 'bedrooms'| 'bath- rooms'| 'parking spaces'//{[key in keyof IListing]?: string;}
 export type CustomReturnType = Array<keyof IListing>
 export type LisitingType = 'GetAllListings'
-
 export interface IListingPostBody {
   apikey: string;
   type: LisitingType;
-  limit?: number; // between 1 and 500
-  sort?: string; // Sort can be any of but not limited to the following: [’id’, ’title’, ’location’, ’price’, ’bedrooms’, ’bath- rooms’, ’parking spaces’]
+  limit?: number; 
+  sort?: string
   order?: 'ASC' | 'DESC';
   fuzzy?: boolean;
   search?: SearchType;
@@ -14,7 +13,7 @@ export interface IListingPostBody {
 }
 
 export interface IListingResponseObject {
-  status: "success",
+  status: "success";
   timestamp: string;
   data: IListing[];
 }
@@ -33,5 +32,3 @@ export interface IListing {
   type: 'sale' | 'rent';
   images: string[];
 }
-
-// PA2 examples
