@@ -77,7 +77,3 @@ export class ListingsService {
   }
 
 }
-//Note:
-// Observable is a representation of a stream of data or events that can be observed over time.
-// It is a powerful tool for working with asynchronous data and event-based programming.
-// It can be created from a variety of sources, including HTTP requests, timers, user inputs, and more.

@@ -29,5 +29,4 @@ export class LoginPage {
       }
     });
   }
-  // TODO: Splash page
 }
