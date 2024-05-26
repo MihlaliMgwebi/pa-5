@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 
 import { Observable } from 'rxjs';
 import { IListing } from 'src/interfaces/listing.model';
@@ -10,19 +11,35 @@ import { ListingsService } from 'src/services/api/listings.service';
   styleUrls: ['listings.page.scss']
 })
 export class ListingsPage {
+  private _loadingCtrl = inject(LoadingController)
   private _listingsService = inject(ListingsService);
-  protected newListings: Observable<IListing[]> | undefined;
+  protected newListings: Observable<IListing[]> | undefined = undefined;
 
   constructor() {
-    this.newListings = this._listingsService.get()
-
+    this.getListings();
   }
+  
+  private async getListings(): Promise<void> {
+    (await this.showLoading()).onDidDismiss().then(() => {      
+      this.newListings = this._listingsService.get()
+    });
+  }
+  
+  private async showLoading(){
+    const loading = await this._loadingCtrl.create({
+      message: 'Dismissing after 3 seconds...',
+      duration: 3000,
+    });
+  
+    await loading.present();
 
+    return loading;
+  }
+  
   public handleRefresh(event: CustomEvent): void {
-    setTimeout(() => {
-      // Any calls to load data go here
-      this.newListings = this._listingsService.get();
+    this.getListings().then(() => {
       (event.target as HTMLIonRefresherElement).complete();
-    }, 2000);
+    });
   }
+  
 }
